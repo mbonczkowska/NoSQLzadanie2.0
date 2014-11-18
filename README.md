@@ -1,4 +1,5 @@
- Jako przykład danych użyłam informacji o pogodzie dla Endynburga. Dane te były sprawdzane co minutę od 1 maja 2006 do 31 grudnia 2009.  
+ Jako przykład danych użyłam informacji o pogodzie dla Endynburga. Dane te były sprawdzane co minutę od 1 maja 2006 do 31 grudnia 2009.    
+ 
  Przykładowy rekord  
  ```
  {
@@ -89,6 +90,7 @@ Agregacja 3
  )
  ```
  Wynik:
+ ````
 { "_id" : 15.2, "count" : 347 }  
 
 { "_id" : 15.59, "count" : 347 }  
@@ -108,9 +110,10 @@ Agregacja 3
 { "_id" : 13.89, "count" : 330 }  
 
 { "_id" : 13.95, "count" : 325 }
-
+````
   
-  ![GitHub Logo](/images/wykres3.png)
+  ![GitHub Logo](/images/wykres3.png)  
+  
 ###Agregacja 4  
 
 10 najczęściej występującycych ciśnień
@@ -120,6 +123,8 @@ db.weather.aggregate(
 {$sort:{count: -1}},  
 {$limit: 10}  
 );
+````
+Wynik:
 ````
 { "_id" : 1011, "count" : 62335 }  
 
@@ -144,4 +149,4 @@ db.weather.aggregate(
 
 ![GitHub Logo](/images/wykres4.png)
 
-
+````
