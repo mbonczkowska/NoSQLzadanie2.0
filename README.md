@@ -1,4 +1,4 @@
- Jako przykład danych użyłam informacji o pogodzie dla Endynburga. Dane te są sprawdzane co minutę od 1 maja 2006 do 31 grudnia 2009.  
+ Jako przykład danych użyłam informacji o pogodzie dla Endynburga. Dane te były sprawdzane co minutę od 1 maja 2006 do 31 grudnia 2009.  
  Przykładowy rekord  
  ```
  {
@@ -36,5 +36,22 @@ Ile było minut, z ciśnieniem atmosferycznym przekraczającym 1040 mBar w 2008 
 db.weather.aggregate( [{ $match : { "date-time" : /^2008/,"atmospheric pressure (mBar)": {$gt:1040} } }, { $group: { _id: null, count: { $sum: 1 } } } ] );
 ````
 { "_id" : null, "count" : 5362 }  
+Agregacja 4
+10 najczęściej występującycych ciśnień
+````
+db.weather.aggregate({$group:{_id: "$atmospheric pressure (mBar)", count:{$sum: 1}}},{$sort:{count: -1}},{$limit: 10});
+````
+{ "_id" : 1011, "count" : 62335 }
+{ "_id" : 1010, "count" : 61875 }
+{ "_id" : 1016, "count" : 58653 }
+{ "_id" : 1019, "count" : 57825 }
+{ "_id" : 1017, "count" : 57323 }
+{ "_id" : 1009, "count" : 56864 }
+{ "_id" : 1008, "count" : 56791 }
+{ "_id" : 1021, "count" : 56142 }
+{ "_id" : 1012, "count" : 55932 }
+{ "_id" : 1013, "count" : 54337 }
 
+![GitHub Logo](/images/wykres4.png)
+Format: ![Alt Text](url)
 
