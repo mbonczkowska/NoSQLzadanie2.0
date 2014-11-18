@@ -27,24 +27,44 @@ db.weather.aggregate(
 { $limit : 10 } )
 
 ````
-{ "_id" : 13.95, "count" : 427 }
-{ "_id" : 10.72, "count" : 415 }
-{ "_id" : 11.56, "count" : 405 }
-{ "_id" : 13, "count" : 400 }
-{ "_id" : 12.51, "count" : 396 }
-{ "_id" : 11.89, "count" : 396 }
-{ "_id" : 10.89, "count" : 395 }
-{ "_id" : 13.46, "count" : 385 }
-{ "_id" : 10.95, "count" : 385 }
-{ "_id" : 12.31, "count" : 383 }
+Wynik:
+````
+{ "_id" : 13.95, "count" : 427 }  
 
+{ "_id" : 10.72, "count" : 415 }  
 
-Agregacja 2
+{ "_id" : 11.56, "count" : 405 }  
+
+{ "_id" : 13, "count" : 400 }  
+ 
+{ "_id" : 12.51, "count" : 396 }  
+
+{ "_id" : 11.89, "count" : 396 }  
+
+{ "_id" : 10.89, "count" : 395 }  
+
+{ "_id" : 13.46, "count" : 385 }  
+
+{ "_id" : 10.95, "count" : 385 }  
+
+{ "_id" : 12.31, "count" : 383 }  
+````
+  
+  
+
+###Agregacja 2  
+
 Ile było minut, w których było bezwietrznie
 ````
-db.weather.aggregate( [ { $match : { "wind speed (m/s)" : 0  } }, { $group: { _id: null, count: { $sum: 1 } } } ] );
+db.weather.aggregate( [   
+{ $match : { "wind speed (m/s)" : 0  } },   
+{ $group: { _id: null, count: { $sum: 1 } } }   
+] );
 ````
-{ "_id" : null, "count" : 41623 }   
+Wynik:
+```
+{ "_id" : null, "count" : 41623 }
+```
 Ile było minut, w których było wietrznie
 ````
 db.weather.aggregate( [ { $match : { "wind speed (m/s)" : {$gt:0}  } }, { $group: { _id: null, count: { $sum: 1 } } } ] )
