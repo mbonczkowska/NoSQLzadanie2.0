@@ -31,11 +31,23 @@ db.weather.aggregate( [ { $match : { "wind speed (m/s)" : 0  } }, { $group: { _i
 ````
 { "_id" : null, "count" : 41623 }   
 Agregacja 3
-Ile było minut, z ciśnieniem atmosferycznym przekraczającym 1040 mBar w 2008 roku
-````
-db.weather.aggregate( [{ $match : { "date-time" : /^2008/,"atmospheric pressure (mBar)": {$gt:1040} } }, { $group: { _id: null, count: { $sum: 1 } } } ] );
-````
-{ "_id" : null, "count" : 5362 }  
+10 najczęściej występujących temperatur przy promieniowaniu słonecznym większym lub równym 0.3 (Kw/m2)
+```
+ db.weather.aggregate(  {$match:{"solar flux (Kw/m2)" : {$gte:0.3}}}, { $group : { _id : '$surface temperature (C)', count: { $sum : 1 }}},   { $sort : { count : -1 }},   { $limit : 10 } )
+ ```
+ 
+{ "_id" : 15.2, "count" : 347 }
+{ "_id" : 15.59, "count" : 347 }
+{ "_id" : 15.79, "count" : 346 }
+{ "_id" : 15.27, "count" : 346 }
+{ "_id" : 15.78, "count" : 340 }
+{ "_id" : 15.46, "count" : 339 }
+{ "_id" : 15.4, "count" : 337 }
+{ "_id" : 15.29, "count" : 335 }
+{ "_id" : 13.89, "count" : 330 }
+{ "_id" : 13.95, "count" : 325 }
+
+
 Agregacja 4
 10 najczęściej występującycych ciśnień
 ````
