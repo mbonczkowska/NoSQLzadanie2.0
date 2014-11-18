@@ -66,7 +66,7 @@ Wynik:
 ```
 { "_id" : null, "count" : 41623 }
 ```
-Ile mynut było wietrznych
+Ile minut było wietrznych
 ````
 db.weather.aggregate( [   
 { $match : { "wind speed (m/s)" : {$gt:0}  } },   
@@ -145,8 +145,8 @@ Wynik:
 { "_id" : 1012, "count" : 55932 }  
 
 { "_id" : 1013, "count" : 54337 }  
-
+````
 
 ![GitHub Logo](/images/wykres4.png)
 
-````
+
