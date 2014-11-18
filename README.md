@@ -18,11 +18,22 @@ Ilość rekordów: 1926366
 
 
 Agregacja 1  
-Ile było minut z temperaturą wyższą niż 28.5 stopnia
+10 najczęściej występujących temperatur, gdy wiatr nie przekraczał 1 m/s
 ````
-db.weather.aggregate( [ { $match : { "surface temperature (C)" : { $gt :28.5 } } }, { $group: { _id: null, count: { $sum: 1 } } } ] );
+db.weather.aggregate(  {$match:{"wind speed (m/s)" : {$lte:1}}}, { $group : { _id : '$surface temperature (C)', count: { $sum : 1 }}},   { $sort : { count : -1 }},   { $limit : 10 } )
+
 ````
-{ "_id" : null, "count" : 92 }
+{ "_id" : 13.95, "count" : 427 }
+{ "_id" : 10.72, "count" : 415 }
+{ "_id" : 11.56, "count" : 405 }
+{ "_id" : 13, "count" : 400 }
+{ "_id" : 12.51, "count" : 396 }
+{ "_id" : 11.89, "count" : 396 }
+{ "_id" : 10.89, "count" : 395 }
+{ "_id" : 13.46, "count" : 385 }
+{ "_id" : 10.95, "count" : 385 }
+{ "_id" : 12.31, "count" : 383 }
+
 
 Agregacja 2
 Ile było minut, w których było bezwietrznie
@@ -30,6 +41,12 @@ Ile było minut, w których było bezwietrznie
 db.weather.aggregate( [ { $match : { "wind speed (m/s)" : 0  } }, { $group: { _id: null, count: { $sum: 1 } } } ] );
 ````
 { "_id" : null, "count" : 41623 }   
+Ile było minut, w których było wietrznie
+````
+db.weather.aggregate( [ { $match : { "wind speed (m/s)" : {$gt:0}  } }, { $group: { _id: null, count: { $sum: 1 } } } ] )
+````
+{ "_id" : null, "count" : 1884743 }
+
 Agregacja 3
 10 najczęściej występujących temperatur przy promieniowaniu słonecznym większym lub równym 0.3 (Kw/m2)
 ```
