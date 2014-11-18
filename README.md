@@ -77,8 +77,9 @@ Wynik:
 ````
 { "_id" : null, "count" : 1884743 }
 ````
-![GitHub Logo](/images/wykres2.png)
-Agregacja 3  
+![GitHub Logo](/images/wykres2.png)  
+
+###Agregacja 3  
 
 10 najczęściej występujących temperatur przy promieniowaniu słonecznym większym lub równym 0.3 (Kw/m2)
 ```
