@@ -17,7 +17,7 @@
 Ilość rekordów: 1926366  
 
 
-Agregacja 1  
+###Agregacja 1  
 10 najczęściej występujących temperatur, gdy wiatr nie przekraczał 1 m/s
 ````
 db.weather.aggregate(    
