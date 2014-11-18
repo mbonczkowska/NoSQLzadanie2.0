@@ -51,10 +51,10 @@ Wynik:
 ````
   
   
-
+![GitHub Logo](/images/wykres1.png)
 ###Agregacja 2  
 
-Ile było minut, w których było bezwietrznie
+Ile minut było bezwietrznych
 ````
 db.weather.aggregate( [   
 { $match : { "wind speed (m/s)" : 0  } },   
@@ -65,46 +65,83 @@ Wynik:
 ```
 { "_id" : null, "count" : 41623 }
 ```
-Ile było minut, w których było wietrznie
+Ile mynut było wietrznych
 ````
-db.weather.aggregate( [ { $match : { "wind speed (m/s)" : {$gt:0}  } }, { $group: { _id: null, count: { $sum: 1 } } } ] )
+db.weather.aggregate( [   
+{ $match : { "wind speed (m/s)" : {$gt:0}  } },   
+{ $group: { _id: null, count: { $sum: 1 } } }   
+] )
+````
+Wynik:
 ````
 { "_id" : null, "count" : 1884743 }
+````
+![GitHub Logo](/images/wykres2.png)
+Agregacja 3  
 
-Agregacja 3
 10 najczęściej występujących temperatur przy promieniowaniu słonecznym większym lub równym 0.3 (Kw/m2)
 ```
- db.weather.aggregate(  {$match:{"solar flux (Kw/m2)" : {$gte:0.3}}}, { $group : { _id : '$surface temperature (C)', count: { $sum : 1 }}},   { $sort : { count : -1 }},   { $limit : 10 } )
+ db.weather.aggregate(    
+ {$match:{"solar flux (Kw/m2)" : {$gte:0.3}}},   
+ { $group : { _id : '$surface temperature (C)', count: { $sum : 1 }}},     
+ { $sort : { count : -1 }},     
+ { $limit : 10 }   
+ )
  ```
- 
-{ "_id" : 15.2, "count" : 347 }
-{ "_id" : 15.59, "count" : 347 }
-{ "_id" : 15.79, "count" : 346 }
-{ "_id" : 15.27, "count" : 346 }
-{ "_id" : 15.78, "count" : 340 }
-{ "_id" : 15.46, "count" : 339 }
-{ "_id" : 15.4, "count" : 337 }
-{ "_id" : 15.29, "count" : 335 }
-{ "_id" : 13.89, "count" : 330 }
+ Wynik:
+{ "_id" : 15.2, "count" : 347 }  
+
+{ "_id" : 15.59, "count" : 347 }  
+
+{ "_id" : 15.79, "count" : 346 }  
+
+{ "_id" : 15.27, "count" : 346 }  
+
+{ "_id" : 15.78, "count" : 340 }  
+
+{ "_id" : 15.46, "count" : 339 }  
+
+{ "_id" : 15.4, "count" : 337 }  
+
+{ "_id" : 15.29, "count" : 335 }  
+
+{ "_id" : 13.89, "count" : 330 }  
+
 { "_id" : 13.95, "count" : 325 }
 
+  
+  ![GitHub Logo](/images/wykres3.png)
+###Agregacja 4  
 
-Agregacja 4
 10 najczęściej występującycych ciśnień
 ````
-db.weather.aggregate({$group:{_id: "$atmospheric pressure (mBar)", count:{$sum: 1}}},{$sort:{count: -1}},{$limit: 10});
+db.weather.aggregate(  
+{$group:{_id: "$atmospheric pressure (mBar)", count:{$sum: 1}}},  
+{$sort:{count: -1}},  
+{$limit: 10}  
+);
 ````
-{ "_id" : 1011, "count" : 62335 }
-{ "_id" : 1010, "count" : 61875 }
-{ "_id" : 1016, "count" : 58653 }
-{ "_id" : 1019, "count" : 57825 }
-{ "_id" : 1017, "count" : 57323 }
-{ "_id" : 1009, "count" : 56864 }
-{ "_id" : 1008, "count" : 56791 }
-{ "_id" : 1021, "count" : 56142 }
-{ "_id" : 1012, "count" : 55932 }
-{ "_id" : 1013, "count" : 54337 }
+{ "_id" : 1011, "count" : 62335 }  
+
+{ "_id" : 1010, "count" : 61875 }  
+
+{ "_id" : 1016, "count" : 58653 }  
+
+{ "_id" : 1019, "count" : 57825 }  
+
+{ "_id" : 1017, "count" : 57323 }  
+
+{ "_id" : 1009, "count" : 56864 }  
+
+{ "_id" : 1008, "count" : 56791 }  
+
+{ "_id" : 1021, "count" : 56142 }  
+
+{ "_id" : 1012, "count" : 55932 }  
+
+{ "_id" : 1013, "count" : 54337 }  
+
 
 ![GitHub Logo](/images/wykres4.png)
-Format: ![Alt Text](url)
+
 
