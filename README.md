@@ -20,7 +20,11 @@ Ilość rekordów: 1926366
 Agregacja 1  
 10 najczęściej występujących temperatur, gdy wiatr nie przekraczał 1 m/s
 ````
-db.weather.aggregate(  {$match:{"wind speed (m/s)" : {$lte:1}}}, { $group : { _id : '$surface temperature (C)', count: { $sum : 1 }}},   { $sort : { count : -1 }},   { $limit : 10 } )
+db.weather.aggregate(    
+{$match:{"wind speed (m/s)" : {$lte:1}}},   
+{ $group : { _id : '$surface temperature (C)', count: { $sum : 1 }}},     
+{ $sort : { count : -1 }},     
+{ $limit : 10 } )
 
 ````
 { "_id" : 13.95, "count" : 427 }
