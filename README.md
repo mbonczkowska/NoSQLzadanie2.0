@@ -30,49 +30,30 @@ db.weather.aggregate(
 ````
 Kod w Ruby:
 ````
-#!/usr/bin/env ruby  
-
-require 'rubygems'  
-
-require 'mongo'  
-
-@conn = Mongo::Connection.new  
-
-@db   = @conn['dataBase']  
-
-@coll = @db['weather']    
-
-match =  { :$match => { :'wind speed (m/s)' => { :$lte => 1 }  } }  
-
-group = { :$group => { :_id=> '$surface temperature (C)', :count=> { :$sum => 1 } } }  
-
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'mongo'
+@conn = Mongo::Connection.new
+@db   = @conn['dataBase']
+@coll = @db['weather']  
+match =  { :$match => { :'wind speed (m/s)' => { :$lte => 1 }  } }
+group = { :$group => { :_id=> '$surface temperature (C)', :count=> { :$sum => 1 } } } 
 sort = { :$sort => { :count => -1}}  
-
 limit = {:$limit => 10 }  
-
 agr = @coll.aggregate([match, group,sort,limit])
 
 ````
 Wynik:
 ````
 { "_id" : 13.95, "count" : 427 }  
-
 { "_id" : 10.72, "count" : 415 }  
-
 { "_id" : 11.56, "count" : 405 }  
-
 { "_id" : 13, "count" : 400 }  
- 
 { "_id" : 12.51, "count" : 396 }  
-
 { "_id" : 11.89, "count" : 396 }  
-
 { "_id" : 10.89, "count" : 395 }  
-
 { "_id" : 13.46, "count" : 385 }  
-
 { "_id" : 10.95, "count" : 385 }  
-
 { "_id" : 12.31, "count" : 383 }  
 ````
   
@@ -90,9 +71,7 @@ db.weather.aggregate( [
 Kod agregacji w Ruby: 
 ````
 match =  { :$match => { :'wind speed (m/s)' => 0  } }  
-
 group = { :$group => { :_id=> nil, :count=> { :$sum => 1 } } }  
-
 @coll.aggregate([match, group])
 ````
 
@@ -110,9 +89,7 @@ db.weather.aggregate( [
 Kod agregacji w Ruby:
 ````
 match =  { :$match => { :'wind speed (m/s)' => { :$gt => 0 }  } }  
-
 group = { :$group => { :_id=> nil, :count=> { :$sum => 1 } } }  
-
 agr = @coll.aggregate([match, group])
 
 ````
@@ -137,13 +114,9 @@ Wynik:
  Kod agregacji w Ruby:
  ````
 match =  { :$match => { :'solar flux (Kw/m2)' => { :$gte => 0.3 }  } }  
-
 group = { :$group => { :_id=> '$surface temperature (C)', :count=> { :$sum => 1 } } }  
-
 sort = { :$sort => { :count => -1}}  
-
 limit = {:$limit => 10 }  
-
 agr = @coll.aggregate([match, group,sort,limit])
 
  ````
@@ -151,23 +124,14 @@ agr = @coll.aggregate([match, group,sort,limit])
  Wynik:
  ````
 { "_id" : 15.2, "count" : 347 }  
-
 { "_id" : 15.59, "count" : 347 }  
-
 { "_id" : 15.79, "count" : 346 }  
-
 { "_id" : 15.27, "count" : 346 }  
-
 { "_id" : 15.78, "count" : 340 }  
-
 { "_id" : 15.46, "count" : 339 }  
-
 { "_id" : 15.4, "count" : 337 }  
-
 { "_id" : 15.29, "count" : 335 }  
-
 { "_id" : 13.89, "count" : 330 }  
-
 { "_id" : 13.95, "count" : 325 }
 ````
   
@@ -186,37 +150,22 @@ db.weather.aggregate(
 Kod agregacji w Ruby:
 ````
 group = { :$group => { :_id=> '$atmospheric pressure (mBar)', :count=> { :$sum => 1 } } }  
-
 sort = { :$sort => { :count => -1}}  
-
 limit = {:$limit => 10 }  
-
 agr = @coll.aggregate([ group,sort,limit])  
-
-
-
 ````
 
 Wynik:
 ````
 { "_id" : 1011, "count" : 62335 }  
-
 { "_id" : 1010, "count" : 61875 }  
-
 { "_id" : 1016, "count" : 58653 }  
-
 { "_id" : 1019, "count" : 57825 }  
-
 { "_id" : 1017, "count" : 57323 }  
-
 { "_id" : 1009, "count" : 56864 }  
-
 { "_id" : 1008, "count" : 56791 }  
-
 { "_id" : 1021, "count" : 56142 }  
-
 { "_id" : 1012, "count" : 55932 }  
-
 { "_id" : 1013, "count" : 54337 }  
 ````
 
