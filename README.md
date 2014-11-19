@@ -30,16 +30,19 @@ db.weather.aggregate(
 ````
 Kod w Ruby:
 ````
-#!/usr/bin/env ruby
+#!/usr/bin/env ruby  
+
 require 'rubygems'
 require 'mongo'
 @conn = Mongo::Connection.new
 @db   = @conn['dataBase']
-@coll = @db['weather']  
+@coll = @db['weather']    
+
 match =  { :$match => { :'wind speed (m/s)' => { :$lte => 1 }  } }
 group = { :$group => { :_id=> '$surface temperature (C)', :count=> { :$sum => 1 } } } 
 sort = { :$sort => { :count => -1}}  
-limit = {:$limit => 10 }  
+limit = {:$limit => 10 }    
+
 agr = @coll.aggregate([match, group,sort,limit])
 
 ````
@@ -71,7 +74,8 @@ db.weather.aggregate( [
 Kod agregacji w Ruby: 
 ````
 match =  { :$match => { :'wind speed (m/s)' => 0  } }  
-group = { :$group => { :_id=> nil, :count=> { :$sum => 1 } } }  
+group = { :$group => { :_id=> nil, :count=> { :$sum => 1 } } }    
+
 @coll.aggregate([match, group])
 ````
 
@@ -89,7 +93,8 @@ db.weather.aggregate( [
 Kod agregacji w Ruby:
 ````
 match =  { :$match => { :'wind speed (m/s)' => { :$gt => 0 }  } }  
-group = { :$group => { :_id=> nil, :count=> { :$sum => 1 } } }  
+group = { :$group => { :_id=> nil, :count=> { :$sum => 1 } } }    
+
 agr = @coll.aggregate([match, group])
 
 ````
@@ -116,7 +121,8 @@ Wynik:
 match =  { :$match => { :'solar flux (Kw/m2)' => { :$gte => 0.3 }  } }  
 group = { :$group => { :_id=> '$surface temperature (C)', :count=> { :$sum => 1 } } }  
 sort = { :$sort => { :count => -1}}  
-limit = {:$limit => 10 }  
+limit = {:$limit => 10 }    
+
 agr = @coll.aggregate([match, group,sort,limit])
 
  ````
@@ -151,7 +157,8 @@ Kod agregacji w Ruby:
 ````
 group = { :$group => { :_id=> '$atmospheric pressure (mBar)', :count=> { :$sum => 1 } } }  
 sort = { :$sort => { :count => -1}}  
-limit = {:$limit => 10 }  
+limit = {:$limit => 10 }    
+
 agr = @coll.aggregate([ group,sort,limit])  
 ````
 
